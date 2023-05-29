@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { data } from "./data";
 
@@ -7,26 +7,27 @@ import Navigation from "./components/Navigation";
 import Products from "./components/Products";
 import ShoppingCart from "./components/ShoppingCart";
 
-function App() {
-  const [products, setProducts] = useState(data);
-  const [cart, setCart] = useState([]);
+import { ProductContext } from "./contexts/ProductContext";
 
-  const addItem = (item) => {
-    // verilen itemi sepete ekleyin
-  };
+function App() {
+  const {cart} = useContext(ProductContext)
+  useEffect(()=>{
+    localStorage.setItem("carts", JSON.stringify(cart))
+    console.log(cart)
+  }, [cart])
 
   return (
     <div className="App">
-      <Navigation cart={cart} />
+      <Navigation/>
 
       {/* Routelar */}
       <main className="content">
         <Route exact path="/">
-          <Products products={products} addItem={addItem} />
+          <Products/>
         </Route>
 
         <Route path="/cart">
-          <ShoppingCart cart={cart} />
+          <ShoppingCart/>
         </Route>
       </main>
     </div>
