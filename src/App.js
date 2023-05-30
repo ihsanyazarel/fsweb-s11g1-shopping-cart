@@ -13,7 +13,6 @@ function App() {
   const {cart} = useContext(ProductContext)
   useEffect(()=>{
     localStorage.setItem("carts", JSON.stringify(cart))
-    console.log(cart)
   }, [cart])
 
   return (
